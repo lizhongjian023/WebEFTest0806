@@ -1,0 +1,101 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+        //AJAX 使用方法
+        $(function () {
+
+          //  $("#loadingDiv").css("display", "none");
+
+            $("#btnAjax").click(function () {
+                $.ajax({
+                    // 请求的URL
+                    url: "/Ajax/Date",
+                    // 请求类型
+                    type: "Post",
+                    data: {},
+                    // 请求后执行的
+                    success: function (data) {
+                        alert("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+                    }
+                })
+            })
+        })
+
+        function afterOnClick(data) {
+            alert(data);
+        }
+
+
+
+
+    </script>
+
+    <H2>Mvc的ajax</H2>
+
+    @*// MVC自带的异步请求*@
+
+
+    @*      三个参数      提交到的方法     控制器    提交之后执行啥*@
+    @using (Ajax.BeginForm("Date", "Ajax", new AjaxOptions()
+    {
+
+        //   执行前的确认
+        Confirm = "你确定要提交吗？",
+
+        HttpMethod = "Post",
+
+        //  跟新目标的   ID
+        UpdateTargetId = "resultDiv",
+
+        //   插入数据的模式
+        InsertionMode = InsertionMode.Replace,
+
+        OnSuccess = "afterOnClick",
+
+        LoadingElementId = "loadingDiv"
+    }))
+    {
+        <input type="text" name="inputText" />
+
+        <input type="submit" id="btnMvcAjax" value="时间" />
+
+
+    }
+
+</head>
+<body>
+
+
+
+
+    <div>
+        <input type="button" id="btnAjax" value="hello" />
+    </div>
+
+
+
+    <div id="resultDiv">
+
+        <p> 哈哈哈哈哈哈哈哈哈哈或或或或</p>
+    </div>
+    <div id="loadingDiv">
+        <img src="~/Content/profileIcon1437.jpg" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@using Model;
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/jquery-easyui-1.6.10/jquery.easyui.min.js"></script>
+    <link href="~/Content/jquery-easyui-1.6.10/themes/icon.css" rel="stylesheet" />
+
+    <link href="~/Content/jquery-easyui-1.6.10/themes/gray/easyui.css" rel="stylesheet" />
+    <link href="~/Content/layui-v2.4.5/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/layui-v2.4.5/layui/layui.js"></script>
+
+</head>
+
+
+<body>
+
+    <table class="layui-table" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>年龄</th>
+                <th>创建人</th>
+                <th>登录名</th>
+                <th>邮箱</th>
+                <th>姓名</th>
+                <th>用户</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewData["UserList"] != null )
+            {
+                List<UserInfo> users = (List<UserInfo>)ViewData["UserList"] ;
+                
+                foreach (var item in users)
+                {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Age</td>
+                <td>@item.CrUserName</td>
+                <td>@item.UserLoginName</td>
+                <td>@item.UserMail</td>
+                <td>@item.UserRealName</td>
+                <td>@item.UserName</td>
+                <td>
+                    <a href="@Url.Action("Detail", "Home", new { articleId = item.Id })" target="_blank">预览</a>
+                    <a href="@Url.Action("Edit", "Article", new { articleId = item.Id })">编辑</a>
+                    <a href="javascript:;" data-id="@item.Id" data-opt="del">删除</a>
+                </td>
+                <td>
+                    <a href="javascript:;" data-id="@item.Id" data-opt="detail">详情</a>
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" style="text-align:center;">暂无数据</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*easyUI 表格*********开始******@
+    @*<script type="text/javascript">
+            $(function () {
+                $("#dg").datagrid({
+                    title: '用户列表'
+                });
+
+                initTable();
+
+                // 隐藏添加框
+                $('#addDialogDiv').css('display', 'none')
+
+
+            });
+
+            //  加载数据
+            function initTable() {
+                //加载数据表格
+                $('#dg').datagrid({
+                    url: '/UserInfo/LoadUserInfos',  //  URL
+                    //fit: true, //自适应大小
+                    pageList: [10, 20, 30, 50, 100],
+                    pageIndex: 1,
+                    striped: true, //是否显示斑马线效果。
+                    rownumbers: true, //如果为true，则显示一个行号列。
+                    fitColumn: false, //允许表格自动缩放，以适应父容器
+                    pagination: true, //如果为true，则在DataGrid控件底部显示分页工具栏。
+                    fitColumns: false, //真正的自动展开/收缩列的大小，以适应网格的宽度，防止水平滚动。
+                    singleSelect: false, //如果为true，则只允许选择一行。
+                    autoRowHeight: true, //定义设置行的高度，根据该行的内容。设置为false可以提高负载性能。
+                    //  checkOnSelect: true,
+                    //   selectOnCheck: true,  //selectOnCheck
+                    nowrap: false, //设置为true，当数据长度超出列宽时将会自动截取
+                    loadMsg: "正在加载，请稍后......", //在从远程站点加载数据的时候显示提示消息。
+                    //width: 900,
+                    //height: 500,
+                    idField: 'Id',
+                    //排序
+                    columns: [[
+                        //{ field: 'ck', title: '', checkbox: true, width: 30 },
+                        { field: 'Id', title: '序号', width: 100 },
+                        { field: 'UserLoginName', title: '用户Id', width: 100 },
+                        { field: 'UserName', title: '姓名', width: 100, align: '' },
+                        { field: 'Address', title: '地址', width: 100, align: 'right' },
+                        { field: 'Number', title: '号码', width: 100, align: 'right' }
+
+                    ]],
+                    fitColumns: true,　//自适应宽度、可以水平滚动
+                    toolbar: [{
+                        id: 'btnAdd',
+                        Text: '添加',
+                        iconCls: 'icon-add',
+                        handler: function () {
+                            addClickEvent();
+                            // alert("AA");
+                        }
+                    }, '-', {
+                        id: 'btnDelete',
+                        text: '删除',
+                        iconCls: 'icon-no',
+                        handler: function () {
+
+                            deleteClickEvent();
+                        }
+                    }, '-', {
+                        id: 'btnSave',
+                        text: '保存',
+                        iconCls: 'icon-save',
+                        handler: function () {
+                            alert('save');
+                        }
+                    }]
+                });
+
+
+            }
+            //当用户点击添加，弹出添加对话框
+            function addClickEvent() {
+
+                //显示Div
+                $('#addDialogDiv').css('display', 'block');
+
+                $('#addDialogDiv').dialog({
+                    modal: true,
+                    resizable: true,
+                    maximizable: true,
+                    collapsible: true,
+                    title: "添加",
+                    width: 400,
+                    height: 300,
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: function () {
+                            subAddForm();
+                        }
+                    }, {
+                        text: '取消',
+                        iconCls: 'icon-no',
+                        handler: function () {
+                            $('#addDialogDiv').dialog('close');
+                        }
+                    }]
+                });
+            }
+
+            //删除
+
+            function deleteClickEvent() {
+                //  获取删除行的选中
+
+                var selectedRows = $("#dg").datagrid("getSelections");
+
+                if (selectedRows.length <= 0) {
+                    alert("未选中任何行");
+                    return;
+                }
+                var ids = "";
+                // 删除数据
+                for (var key in selectedRows) {
+                    ids = ids + selectedRows[key].Id + ",";
+                }
+                ids = ids.substr(0, ids.length - 1);
+                alert(ids);
+                $.post("/UserLogin/Delete", { ids: ids }, function (data) {
+
+                    initTable();
+                })
+            }
+
+
+            // 提交数据到后台
+
+            function subAddForm() {
+                $("#addDialogDiv form").submit();
+            }
+
+            //  执行成功之后
+            function afterAdd(data) {
+                if (data == "ok") {
+                    ////////alert("添加成功")
+                    initTable();
+
+                    $('#addDialogDiv').dialog('close');
+
+                } else {
+                    ///  alert("添加失败");
+                    $.message.alert("错误", "失败")
+                }
+
+            }
+
+        </script>*@
+    @*easyUI 表格*********结束******@
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model Model.UserMSG
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>UserMSG</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.zt)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.zt)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.username)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.username)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.workcode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.workcode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.phoneNumber)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.phoneNumber)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.departmentid)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.departmentid)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.company)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.company)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.login)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.login)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.userid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

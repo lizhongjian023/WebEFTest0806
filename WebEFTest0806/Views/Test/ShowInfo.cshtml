@@ -1,0 +1,84 @@
+﻿@model Model.UserInfo
+@using WebEFTest0806.Controllers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowInfo</title>
+</head>
+<body>
+    <div>
+      @{ var info = ViewData["info"] as UserInfo;} 
+        <h4>UserInfo</h4>
+        <hr />
+
+
+        <dl class="dl-horizontal">
+            <dt>
+
+            </dt>
+
+            <dd>
+                用户姓名
+            </dd>
+
+            <dt>
+
+            </dt>
+
+            <div>
+                <dd>
+                  
+                </dd>
+            </div>
+
+            <dt>
+
+            </dt>
+
+            <dd>
+                
+            </dd>
+
+            <dt>
+
+            </dt>
+
+            <dd>
+                @info.UserName
+            </dd>
+
+            <dt>
+
+            </dt>
+
+            <dd>
+
+            </dd>
+
+            <dt>
+
+            </dt>
+
+            <dd>
+
+            </dd>
+
+            <dt>
+
+            </dt>
+
+
+
+        </dl>
+    </div>
+    <p>
+
+    </p>
+</body>
+</html>
